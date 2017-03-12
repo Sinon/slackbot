@@ -1,14 +1,8 @@
 import os
 import time
 from datetime import datetime
-import asyncio
-import json
-import sys
-
-import aiohttp
 
 from slackclient import SlackClient
-from flask import Flask, request, Response
 
 
 slack_token = os.environ["SLACK_API_TOKEN"]
@@ -45,7 +39,7 @@ def parrot_rmt_messages(text, e_type, is_bot, new_message):
         resp = sc.api_call('chat.postMessage', channel='#general', text=text)
         if not resp['ok']:
             print(resp)
-            # posts as user?
+            # posts as user requesting?
             # sc.rtm_send_message("general", e['text'], username='testbot)
 
 
@@ -59,8 +53,6 @@ def list_channels():
 
 def main():
     print(sc.api_call("auth.test"))
-
-    print(sc.__dict__)
     sc.api_call(
         "chat.postMessage",
         channel="#general",
@@ -75,7 +67,6 @@ def main():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
     main()
 
 
