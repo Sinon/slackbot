@@ -22,6 +22,7 @@ def inbound():
     inbound_message = username + " in " + channel + " says: " + text
     return jsonify(slack_resp(inbound_message))
 
+
 valid_build_job_name = ['api']
 
 
@@ -32,7 +33,8 @@ def build():
     text = request.form.get('text')
     response_url = request.form['response_url']
     if text not in valid_build_job_name:
-        text = 'Unknown job {} supplied. Valid options: {}'.format(text, valid_build_job_name)
+        text = ('Unknown job {} supplied. Valid options: {}'
+                ).format(text, valid_build_job_name)
         response_type = 'ephemeral'
         return jsonify(slack_resp(text, response_type))
     text = 'Build {} has been started by {}'.format(text, username)
